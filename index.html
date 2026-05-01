@@ -2,96 +2,524 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>GovernanceOps Labs</title>
+  <title>GovernanceOps Labs — Practical AI Governance Resources</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="description" content="Practitioner-built AI governance, risk, and assurance tools for security and compliance professionals.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      color: #111;
+    :root {
+      --ink: #111118;
+      --ink-light: #4a4a5a;
+      --ink-muted: #8a8a9a;
+      --surface: #fafaf8;
+      --card: #ffffff;
+      --border: #e4e4e0;
+      --accent: #1a3a6b;
+      --accent-light: #e8eef8;
+      --rule: 1px solid var(--border);
     }
 
-    .hero {
-      height: 80vh;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      background: var(--surface);
+      color: var(--ink);
+      line-height: 1.7;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(250, 250, 248, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: var(--rule);
+      padding: 0 40px;
+      height: 60px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      background: linear-gradient(to bottom, #ffffff, #eaeaea);
-      text-align: center;
-      padding: 20px;
+      justify-content: space-between;
+    }
+
+    .nav-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      padding: 160px 40px 100px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-label::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: var(--ink-muted);
     }
 
     .hero h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
-      letter-spacing: 2px;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      margin-bottom: 28px;
     }
 
-    .hero p {
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
       font-size: 18px;
-      color: #555;
+      font-weight: 300;
+      color: var(--ink-light);
+      max-width: 560px;
+      line-height: 1.65;
+      margin-bottom: 44px;
     }
 
-    .section {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 0 20px;
-    }
-
-    .products {
-      display: grid;
-      gap: 20px;
-      grid-template-columns: 1fr 1fr;
-    }
-
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-    }
-
-    .card h3 {
-      margin-top: 0;
-    }
-
-    .card a {
-      display: inline-block;
-      margin-top: 10px;
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
       text-decoration: none;
-      color: #1e3a8a;
-      font-weight: bold;
+      transition: opacity 0.2s, transform 0.2s;
     }
 
+    .hero-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .hero-cta svg { width: 14px; height: 14px; }
+
+    /* DIVIDER */
+    .divider {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 40px;
+      border-top: var(--rule);
+    }
+
+    /* ABOUT */
+    .about {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      padding-top: 6px;
+    }
+
+    .about-body p {
+      font-size: 16px;
+      color: var(--ink-light);
+      margin-bottom: 16px;
+    }
+
+    .about-body p:last-child { margin-bottom: 0; }
+
+    .about-body strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    /* PRODUCTS */
+    .products-section {
+      background: white;
+      border-top: var(--rule);
+      border-bottom: var(--rule);
+      padding: 80px 40px;
+    }
+
+    .products-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .products-header {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+      margin-bottom: 48px;
+    }
+
+    .products-header p {
+      font-size: 15px;
+      color: var(--ink-light);
+      padding-top: 6px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: var(--rule);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .product-card {
+      background: white;
+      padding: 28px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: background 0.2s;
+    }
+
+    .product-card:hover { background: var(--accent-light); }
+
+    .product-tag {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+
+    .product-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      line-height: 1.3;
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .product-card p {
+      font-size: 14px;
+      color: var(--ink-light);
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      margin-top: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .product-link:hover { text-decoration: underline; }
+
+    .product-link svg { width: 12px; height: 12px; }
+
+    /* BUNDLES */
+    .bundles {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+
+    .bundles-header {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 60px;
+      margin-bottom: 40px;
+    }
+
+    .bundles-header p {
+      font-size: 15px;
+      color: var(--ink-light);
+      padding-top: 6px;
+    }
+
+    .bundle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      border: var(--rule);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .bundle-item {
+      background: white;
+      padding: 24px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-bottom: var(--rule);
+      transition: background 0.2s;
+    }
+
+    .bundle-item:last-child { border-bottom: none; }
+    .bundle-item:hover { background: var(--accent-light); }
+
+    .bundle-text h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 17px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .bundle-text p {
+      font-size: 13px;
+      color: var(--ink-light);
+    }
+
+    .bundle-cta {
+      flex-shrink: 0;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .bundle-cta:hover { text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      border-top: var(--rule);
+      padding: 40px;
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .footer-meta {
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--accent); }
+
+    /* RESPONSIVE */
+    @media (max-width: 680px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 120px 24px 80px; }
+      .about, .bundles { padding: 60px 24px; }
+      .products-section { padding: 60px 24px; }
+      .about, .products-header, .bundles-header { grid-template-columns: 1fr; gap: 20px; }
+      .product-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; align-items: flex-start; padding: 40px 24px; }
+    }
   </style>
 </head>
-
 <body>
 
+  <nav>
+    <a href="#" class="nav-brand">GovernanceOps Labs</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Resources</a></li>
+      <li><a href="https://governanceopslabs.gumroad.com/" target="_blank">Gumroad</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
   <section class="hero">
-    <div>
-      <h1>GovernanceOps Labs</h1>
-      <p>Practical AI governance, risk, and assurance tools.</p>
+    <div class="hero-label">Independent AI Governance Resources</div>
+    <h1>Built by practitioners,<br>for <em>practitioners.</em></h1>
+    <p class="hero-sub">GovernanceOps Labs publishes practical AI governance, risk, and assurance tools — grounded in real frameworks and designed for security and compliance professionals who need to get things done.</p>
+    <a href="#products" class="hero-cta">
+      Browse Resources
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="section-label">About</div>
+    <div class="about-body">
+      <p>GovernanceOps Labs exists because <strong>most AI governance resources are built for consultants, not practitioners.</strong> They're abstract, audit-focused, and disconnected from how compliance and security teams actually operate.</p>
+      <p>Every document published here comes from hands-on work with <strong>NIST AI RMF, ISO 42001, OWASP LLM Top 10, and EU AI Act</strong> obligations — mapped to real-world controls, real risk decisions, and repeatable operational processes.</p>
+      <p>These are the tools we wish existed when we started.</p>
     </div>
   </section>
 
-  <section class="section">
-    <h2>Products</h2>
+  <div class="divider"></div>
 
-    <div class="products">
-      <div class="card">
-        <h3>AI Use Case Intake & Risk Triage Pack</h3>
-        <p>Identify, assess, and classify AI risk consistently across your organization.</p>
+  <!-- PRODUCTS -->
+  <section class="products-section" id="products">
+    <div class="products-inner">
+      <div class="products-header">
+        <div class="section-label">Phase Packs</div>
+        <p>Modular document sets organized by governance phase — buy what you need, when you need it.</p>
       </div>
+      <div class="product-grid">
 
-      <div class="card">
-        <h3>AI Risk Acceptance & Control Alignment Pack</h3>
-        <p>Convert risk awareness into accountability, ownership, and defensible decisions.</p>
+        <div class="product-card">
+          <div class="product-tag">Phase 1</div>
+          <h3>AI Use Case Intake &amp; Risk Triage Pack</h3>
+          <p>Identify, assess, and classify AI risk consistently across your organization with intake forms, triage scorecards, and classification guidance.</p>
+          <a href="https://governanceopslabs.gumroad.com/l/plfchj" target="_blank" class="product-link">
+            Get on Gumroad
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="product-card">
+          <div class="product-tag">Phase 2</div>
+          <h3>AI Risk Acceptance &amp; Control Alignment Pack</h3>
+          <p>Convert risk awareness into accountability, ownership, and defensible decisions with formal acceptance documentation and control mapping.</p>
+          <a href="https://governanceopslabs.gumroad.com/l/ndtbgw" target="_blank" class="product-link">
+            Get on Gumroad
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="product-card">
+          <div class="product-tag">Phase 3</div>
+          <h3>AI Monitoring &amp; Lifecycle Governance Pack</h3>
+          <p>Operationalize ongoing AI risk oversight with monitoring frameworks, metrics registers, incident logs, and lifecycle status reporting.</p>
+          <a href="https://governanceopslabs.gumroad.com/l/xdhyfv" target="_blank" class="product-link">
+            Get on Gumroad
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="product-card">
+          <div class="product-tag">AI Security</div>
+          <h3>AI Feature Security Intake Pack</h3>
+          <p>Security-focused intake tooling for AI features and capabilities — designed for teams that need structured security review before AI goes to production.</p>
+          <a href="https://governanceopslabs.gumroad.com/l/exessl" target="_blank" class="product-link">
+            Get on Gumroad
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
       </div>
     </div>
   </section>
+
+  <!-- BUNDLES -->
+  <section class="bundles">
+    <div class="bundles-header">
+      <div class="section-label">Bundles</div>
+      <p>Full framework bundles for teams that want everything in one place.</p>
+    </div>
+    <div class="bundle-list">
+
+      <div class="bundle-item">
+        <div class="bundle-text">
+          <h3>AI Governance Program — Complete Bundle (Phases 1, 2 &amp; 3)</h3>
+          <p>All three phase packs — intake through lifecycle management — in a single download.</p>
+        </div>
+        <a href="https://governanceopslabs.gumroad.com/l/avexaq" target="_blank" class="bundle-cta">
+          Get on Gumroad
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+
+      <div class="bundle-item">
+        <div class="bundle-text">
+          <h3>AI Governance Program — Phase 1+2 Bundle</h3>
+          <p>Intake, triage, risk acceptance, and control alignment — the first two phases bundled for teams building their governance foundation.</p>
+        </div>
+        <a href="https://governanceopslabs.gumroad.com/l/dxnfq" target="_blank" class="bundle-cta">
+          Get on Gumroad
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">GovernanceOps Labs</div>
+    <div class="footer-meta">© 2026 GovernanceOps Labs. Independent practitioner resources.</div>
+    <div class="footer-links">
+      <a href="https://github.com/GovernanceOpsLabs" target="_blank">GitHub</a>
+      <a href="https://governanceopslabs.gumroad.com/" target="_blank">Gumroad</a>
+    </div>
+  </footer>
 
 </body>
 </html>
